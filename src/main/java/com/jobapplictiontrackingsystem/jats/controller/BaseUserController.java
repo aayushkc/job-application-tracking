@@ -1,8 +1,6 @@
 package com.jobapplictiontrackingsystem.jats.controller;
 
-import java.util.List;
-import java.util.ArrayList;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,13 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 import com.jobapplictiontrackingsystem.jats.entity.User;
+import com.jobapplictiontrackingsystem.jats.services.impl.UserAuthenticationServiceImpl;
 
 @Controller
 @RequestMapping("/")
 public class BaseUserController {
 
-    protected static List<User> userList = new ArrayList<>();
-    
+
+    @Autowired
+    UserAuthenticationServiceImpl userAuthenticationService;
+
     @GetMapping("/")
     public String indexPage(){
         return "home";
@@ -32,7 +33,7 @@ public class BaseUserController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user){
-        userList.add(user);
+        userAuthenticationService.saveUser(user);
         return "redirect:/login";
-    }
+    }   
 }
