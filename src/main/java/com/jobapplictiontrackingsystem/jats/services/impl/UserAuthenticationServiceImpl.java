@@ -21,23 +21,6 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService{
     UserRepository userRepo;
 
     private Logger logger = LoggerFactory.getLogger(getClass());
-    
-    @Override 
-    public boolean checkAuthDetails(User user){
-       
-        User dbUser = userRepo.findByUserName(user.getUserName());
-        if(dbUser == null){
-            return false;
-        }
-
-        if(passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) return true;
-        
-        return false;
-        
-        }
-           
-        
-        
 
     @Override
     public void saveUser(User user){

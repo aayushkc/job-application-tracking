@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html th:replace="~{/layout :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html th:replace="~{/layout :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
     <title>Login</title>
 </head>
 <body>
     <main>
-        <form th:method="post" th:action="@{/login}" th:object="${userLoginForm}">
+        <form th:method="post" th:action="@{/login}">
             <fieldset>
                 <div id="legend">
                   <legend class="">Log In</legend>
-                  <p th:text="${worngCredential}" class="text-danger"></p>
                 </div>
+                <div th:if="${param.error}">
+                  <p style="color:red;">Invalid username or password</p>
+              </div>
+              <div th:if="${param.logout}">
+                You have been logged out.</div>
                 <div class="control-group">
                   <!-- Username -->
                   <label class="control-label" for="username">Username</label>
                   <div class="controls">
-                    <input type="text" id="username" name="username" th:field="*{userName}" placeholder="" class="input-xlarge" required="required">
+                    <input type="text" id="username" name="username"  placeholder="" class="input-xlarge" required="required">
                   </div>
                 </div>
         
@@ -24,7 +28,7 @@
                   <!-- Password-->
                   <label class="control-label" for="password">Password</label>
                   <div class="controls">
-                    <input type="password" id="password" name="password" th:field="*{password}" placeholder="" class="input-xlarge"
+                    <input type="password" id="password" name="password"  placeholder="" class="input-xlarge"
                       required="required">
                   </div>
                 </div>
