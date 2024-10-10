@@ -21,12 +21,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
+              <a class="nav-link active" aria-current="page" href="/">View Jobs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/jobs/add-job">Add Job</a>
             </li>
         
           </ul>
-         
-           <a th:href="@{/register}"><button class="btn btn-outline-success">Register</button></a>
+          <form th:action="@{/logout}" th:method="post">
+              <button class="btn btn-outline-success">Logout</button>
+          </form>
         </div>
       </div>
     </nav>
