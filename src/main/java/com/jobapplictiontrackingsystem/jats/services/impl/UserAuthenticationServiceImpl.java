@@ -27,9 +27,5 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService{
         logger.info("New User Created");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
-    }
-
-
-
-    
+    }    
 }

@@ -25,11 +25,18 @@ public class BaseUserController {
         return "home";
     }
 
-    @GetMapping("/register")
-    public String registerPage(Model model){
+    @GetMapping("/register-as-seeker")
+    public String registerSeekerPage(Model model){
         model.addAttribute("userRegisterForm", new User());
-        return "register";
+        return "register/register-as-jobSeeker";
     }
+
+    @GetMapping("/register-as-recruiter")
+    public String registerRecrutierPage(Model model){
+        model.addAttribute("userRegisterForm", new User());
+        return "register/register-as-recruiter";
+    }
+
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user){

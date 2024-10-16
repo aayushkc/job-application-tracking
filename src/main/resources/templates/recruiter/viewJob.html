@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html th:replace="~{/recruiter/layout :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
     <title>View Job</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-<div class="container mt-5">
+    <main class="container mt-5">
     <div class="card">
         <div class="card-header">
             <div th:if="${error}">
@@ -17,10 +18,10 @@
             <h5 class="card-title" th:text="'Company: ' + ${job.company}"></h5>
             <p class="card-text" th:text="'Salary: $' + ${job.salary}"></p>
             <p class="card-text" th:text="${job.description}"></p>
-            <a href="/jobs" class="btn btn-secondary">Back to Job List</a>
+            <a href="/recruiter" class="btn btn-secondary">Back to Job List</a>
         </div>
     </div>
-</div>
+    </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

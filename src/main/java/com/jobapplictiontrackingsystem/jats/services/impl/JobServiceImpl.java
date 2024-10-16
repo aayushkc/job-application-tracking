@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jobapplictiontrackingsystem.jats.entity.Jobs;
+import com.jobapplictiontrackingsystem.jats.entity.User;
 import com.jobapplictiontrackingsystem.jats.repo.JobRepository;
 import com.jobapplictiontrackingsystem.jats.services.JobService;
 
@@ -15,6 +16,10 @@ public class JobServiceImpl implements JobService{
 
     @Autowired
     JobRepository jobRepo;
+
+    public List<Jobs> getJobsForRecruiter(User recruiter) {
+        return jobRepo.findByRecruiter(recruiter);
+    }
 
     @Override
     public List<Jobs> getAllJobs() {

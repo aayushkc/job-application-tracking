@@ -7,7 +7,9 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.jobapplictiontrackingsystem.jats.services.impl.CustomUserDetailService;
 
@@ -17,15 +19,28 @@ public class SecurityConfig {
 
 	@Autowired
 	private CustomUserDetailService customUserDetailsService;
+
+	@Bean
+	PasswordEncoder getPasswordEncoder(){
+		return new BCryptPasswordEncoder();
+	}
+	
+	@Bean
+    AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
+    }
 	
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
 		
 		return httpSecurity
 				.authorizeHttpRequests(request -> request
-														.requestMatchers("/register","/css/**", "image/**").permitAll()
+														.requestMatchers("/register-as-recruiter","/register-as-seeker","/register","/css/**", "image/**").permitAll()
+														.requestMatchers("/recruiter/**").hasRole("RECRUITER")
+														.requestMatchers("/jobseeker/**").hasRole("JOB_SEEKER")
 														.anyRequest().authenticated())
-				.formLogin(form -> form.loginPage("/login").permitAll())
+				.formLogin(form -> form.loginPage("/login").permitAll()
+										.successHandler(customAuthenticationSuccessHandler()))
 				.build();
 	}
 

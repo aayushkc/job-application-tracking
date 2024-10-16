@@ -45,13 +45,13 @@ public class JobControllerIntegrationTest {
     }
 
      @Test
-    @WithMockUser(username = "admin", roles = { "ADMIN" })
+    @WithMockUser(username = "admin", roles = { "RECRUITER" })
     void testGetJobByIdSuccess() throws Exception {
         // Fetch a job that was added during setup
         Jobs job = repo.findAll().get(0);
 
         // Perform GET request for the job by ID
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/jobs/" + job.getId()))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/recruiter/job/" + job.getId()))
                 .andReturn();
 
         // Assert the response status and content
@@ -63,11 +63,11 @@ public class JobControllerIntegrationTest {
     }
 
     @Test
-    @WithMockUser(username = "admin", roles = { "ADMIN" })
+    @WithMockUser(username = "admin", roles = { "RECRUITER" })
     void testGetJobByIdFailureNotFound() throws Exception {
         
         // Attempt to fetch a job that doesn't exist
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/jobs/99"))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/recruiter/job/99"))
                 .andReturn();
 
         assertEquals(200, result.getResponse().getStatus());

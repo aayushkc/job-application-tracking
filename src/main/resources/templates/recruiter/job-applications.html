@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html th:replace="~{/recruiter/layout :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Jobs Applicants</title>
+</head>
+<body>
+<main class="container mt-5">
+    <h1 class="mb-4">Job Applications</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Seeker</th>
+                <th>Status</th>
+                <th>Change Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="jobApplication : ${applications}">
+                <td th:text="${jobApplication.seeker.userName}"></td>
+                <td th:text="${jobApplication.status}" class="font-weight-bold"></td>
+                <td>
+                    <form th:action="@{/recruiter/application/{applicationId}/status(applicationId=${jobApplication.id})}" method="post">
+                        <div class="input-group">
+                            <select name="status" class="custom-select" style="margin-right: 10px;">
+                                <option value="ACCEPTED" th:selected="${jobApplication.status == 'ACCEPTED'}">Accepted</option>
+                                <option value="REJECTED" th:selected="${jobApplication.status == 'REJECTED'}">Rejected</option>
+                            </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+
+        </tbody>
+   
+</table>
+</main>
+</body>
+</html>
